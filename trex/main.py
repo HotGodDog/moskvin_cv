@@ -134,7 +134,7 @@ with mss.mss() as sct:
         last_obstacle_state = obstacle1
 
         # Выводим отладочную информацию на экран
-        info_text = f"Speed: {current_speed:.2f}/{MAX_SPEED}, Shift: {shift}px"
+        info_text = f"Speed: {current_speed:.2f}/{MAX_SPEED}, Shift: {shift}/{MAX_SHIFT}px"
         cv2.putText(debug_img, info_text, (w // 18, h // 2 + h // 3 + h // 8), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
         
         cv2.imshow("Game Capture", debug_img)
