@@ -115,8 +115,13 @@ with mss.mss() as sct:
         current_speed = min(current_speed, MAX_SPEED)
 
         # Calculation of the current shift
-        progress = (current_speed - INITIAL_SPEED) / (MAX_SPEED - INITIAL_SPEED)    
-        shift = int(MAX_SHIFT * progress)
+        speed_int = int(current_speed)
+
+        idx = max(0, min(7, speed_int - 6))
+
+        shift_coeffs = [0.00, 0.02, 0.04, 0.06, 0.08, 0.11, 0.14, 0.17]
+
+        shift = int(w * shift_coeffs[idx])
         
         obstacle1, obstacle2, game_over, debug_img = detect_obstacle(img_bgr, shift)
 
@@ -134,7 +139,7 @@ with mss.mss() as sct:
         last_obstacle_state = obstacle1
 
         # Выводим отладочную информацию на экран
-        info_text = f"Speed: {current_speed:.2f}/{MAX_SPEED}, Shift: {shift}/{MAX_SHIFT}px"
+        info_text = f"Speed: {current_speed:.2f}/{MAX_SPEED}, Shift: {shift}px"
         cv2.putText(debug_img, info_text, (w // 18, h // 2 + h // 3 + h // 8), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
         
         cv2.imshow("Game Capture", debug_img)
